@@ -3,7 +3,7 @@
 install.packages("data.table")
 library(readr)
 #Load the file into the stocks data table. Convert Date to date format
-stocks<-fread("https://query1.finance.yahoo.com/v7/finance/download/%5EGSPC?period1=-631411200&period2=1614297600&interval=1wk&events=history&includeAdjustedClose=true", colClasses=c(Date=col_date(format = "%Y-%m-%d")))
+stocks<-fread("https://query1.finance.yahoo.com/v7/finance/download/%5EGSPC?period1=-631152000&period2=1636761600&interval=1wk&events=history&includeAdjustedClose=true", colClasses=c(Date=col_date(format = "%Y-%m-%d")))
 
 #Set highestclose to 1 to set start the loop
 highestclose<-1
