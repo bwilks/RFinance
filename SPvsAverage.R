@@ -2,8 +2,8 @@
 #Install package for fread() and col_date()
 install.packages("data.table")
 library(readr)
-#Load the file into the stocks data table. Convert Date to date format
-stocks<-fread("https://query1.finance.yahoo.com/v7/finance/download/%5EGSPC?period1=-631152000&period2=1636761600&interval=1wk&events=history&includeAdjustedClose=true", colClasses=c(Date=col_date(format = "%Y-%m-%d")))
+#Load the file into the GSPC data table. Convert Date to date format
+GSPC<-fread("https://query1.finance.yahoo.com/v7/finance/download/%5EGSPC?period1=-631152000&period2=1636761600&interval=1wk&events=history&includeAdjustedClose=true", colClasses=c(Date=col_date(format = "%Y-%m-%d")))
 
 #Set highestclose to 1 to set start the loop
 highestclose<-1
@@ -19,17 +19,17 @@ for (row in 1:nrow(GSPC)) {
   GSPC[row,"Highest"]<-highestclose
 }
 
-# This creates a data frame that gives a steady increas of the market since 1950.
+# This creates a data frame that gives a steady increase of the market since 1950.
 years<-data.frame("year"= seq(as.Date("1950/01/01"), by = "year", length.out = 73) ,"yearprice"=c(1950:2022))
-#Upate annnual price by steady 7.674% (1/1950- 1/2021 https://dqydj.com/sp-500-return-calculator/). 1/2/1950 Close is 17.09
-updatedprice<-17.09
+#Upate annnual price by steady 7.860% (1/1950- 1/2021 https://dqydj.com/sp-500-return-calculator/). 1/2/1950 Close is 17.09
+updatedprice<-16.66
 for (row in 1:nrow(years)) {
   years[row,"yearprice"]<-updatedprice   
-  updatedprice<- updatedprice *1.07674
+  updatedprice<- updatedprice *1.0786
 }
 
 
-# Presents the plog of weekly stock market close, higest historical return and average return. Requires packages:dplyr, ggplot2, scales
+# Presents the plot of weekly stock market close, highest historical return and average return. Requires packages:dplyr, ggplot2, scales
 library(scales)
 library(ggplot2)
 library(dplyr) 
